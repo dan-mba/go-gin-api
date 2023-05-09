@@ -1,12 +1,23 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
+	"os"
 
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
+	ipAddr := os.Getenv("IP_ADDRESS")
+	if ipAddr == "" {
+		ipAddr = "127.0.0.1"
+	}
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+
 	r := gin.New()
 	r.SetTrustedProxies(nil)
 	r.GET("/ping", func(c *gin.Context) {
@@ -14,5 +25,5 @@ func main() {
 			"message": "pong",
 		})
 	})
-	r.Run("127.0.0.1:8080") // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
+	r.Run(fmt.Sprintf("%s:%s", ipAddr, port)) // listen and serve on 127.0.0.1:8080
 }
