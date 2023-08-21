@@ -1,2 +1,2 @@
 # go-gin-api
-Learn Go by buildin an API
+Learn Go by building an API
